@@ -5,7 +5,7 @@ from pyquery import PyQuery as pq
 
 
 
-
+#拿到该界面
 def get_zhihu_page(url,headers):
     try:
         page = requests.get(url,headers=headers)
@@ -15,7 +15,7 @@ def get_zhihu_page(url,headers):
             return None
     except RequestException:
         return None
-
+#解析界面
 def parse_one_page(html):
     doc =pq(html)
     items =doc('.explore-tab .explore-feed.feed-item').items()
@@ -27,7 +27,7 @@ def parse_one_page(html):
         write_to_file(author)
         answer = pq(item.find('.content').html()).text()
         write_to_file(answer)
-
+#写入文件
 def write_to_file(result):
     with open('D:\project/yangjun.txt','a',encoding='utf8')as  f:
         f.write(result)
